@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rest API Cliente</title>
+</head>
+
+<body>
+
+    <form>
+       <input id="num1" type="number" />
+       <input id="num2" type="number" />
+       <input value="add" type="submit" /> 
+    </form>
+
+    <script>
+                document.addEventListener("submit", senData);
+
+                function senData(e){
+
+                       e.preventDefault();
+                       const a = document.querySelector("#num1").value;
+                       const b = document.querySelector("#num2").value;
+                        
+                       fetch("http://localhost:5000/add",
+                       {
+                        method: "POST",
+                        headers: {
+                            Accept: "application/json",
+                            "Content-Type": "application/json"
+                        },
+
+                        body: JSON.stringify({
+                             a: parseInt(a), 
+                             b: parseInt(b)})
+
+
+                       }
+
+
+                       ).then(res => res.json())
+                        .then( data => {const { result} = data; console.log(result)})
+                        .catch(err => console.log("Erro al procesar: " + err));
+
+                }
+
+
+    </script>
+
+</body>
